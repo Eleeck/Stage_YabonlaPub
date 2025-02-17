@@ -19,7 +19,9 @@ composants utilisés :
 - npm install body-parser
 
 L'api possède déjà des scripts de lancement dans package.json
-❗Fichiers contenant les variables d'environnements : .env.developemnt et .env.production doivent être modifiés avant le lancement du serveur❗
+❗Fichiers contenant les variables d'environnements : 
+.env.developemnt et .env.production 
+doivent être modifiés avant le lancement du serveur❗
 Configurer les ports du serveur et de la base de données en fonctions du mode et de vos paramètres
  Démarrage en mode dev : npm run dev
  Démarrage en mode production : npm start
