@@ -25,3 +25,4 @@ doivent être modifiés avant le lancement du serveur❗
 Configurer les ports du serveur et de la base de données en fonctions du mode et de vos paramètres
  Démarrage en mode dev : npm run dev
  Démarrage en mode production : npm start
+Le fichier .sh permet de faire les tests des routes. Vous pouvez le réutiliser ou utiliser Postman ou votre outil habituel
