@@ -1,0 +1,128 @@
+===========================================
+           FONCTIONNALITÉS ADMIN
+===========================================
+
+Nom fonctionnalité : ajout admin  
+Description : En tant que Développeur, je souhaite ajouter un compte administrateur afin qu'un nouvel admin puisse réaliser ses actions.  
+Test : Vérifier dans la base de données (DB) que le compte administrateur est bien créé et que la connexion (login) fonctionne.  
+Ordre : 1
+
+Nom fonctionnalité : Se connecter / Authentification  
+Description : En tant qu'administrateur, je souhaite obtenir un token de session afin de pouvoir réaliser mes opérations.  
+Test : Appeler la route API d'authentification et comparer les résultats obtenus avec ceux attendus dans le fichier YAML.  
+Ordre : 1
+
+Nom fonctionnalité : Consultation (Admin)  
+Description : En tant qu'admin, je souhaite pouvoir consulter mes informations.  
+Test : Appeler la route API de login pour obtenir les informations du compte admin (GET) et vérifier que le code de réponse est 200.  
+Ordre : 2
+
+Nom fonctionnalité : Modifier (Admin)  
+Description : En tant que Développeur, je souhaite pouvoir modifier les informations d'un compte admin.  
+Test : Modifier via la route API (PUT ou PATCH) et vérifier dans la base de données que les informations ont été mises à jour correctement.  
+Ordre : 2
+
+Nom fonctionnalité : Supprimer (Admin)  
+Description : En tant que Développeur, je souhaite pouvoir supprimer des admins.  
+Test : Supprimer via la route API (DELETE) puis vérifier dans la base de données qu'une tentative de connexion renvoie une erreur (connexion impossible).  
+Ordre : 3
+
+
+===========================================
+           FONCTIONNALITÉS ASSOCIATION
+===========================================
+
+Nom fonctionnalité : Ajout Association  
+Description : En tant qu'admin, je souhaite pouvoir ajouter une association afin de gérer les partenariats.  
+Test : Appeler la route API `POST /associations` et vérifier que le code de réponse est 200 ou 201 ainsi que la bonne insertion dans la base de données, conformément à la documentation YAML.  
+Ordre : 1
+
+Nom fonctionnalité : Consultation Association  
+Description : En tant qu'admin, je souhaite pouvoir consulter les informations détaillées d'une association.  
+Test : Appeler la route API `GET /associations/{id}` et vérifier que le code de réponse est 200 et que les données correspondent aux attentes définies dans la documentation YAML.  
+Ordre : 2
+
+Nom fonctionnalité : Modification Association  
+Description : En tant qu'admin, je souhaite pouvoir modifier les informations d'une association.  
+Test : Appeler la route API `PUT /associations/{id}` avec les nouvelles données, vérifier dans la base de données que les modifications ont été effectuées et que la réponse correspond à la documentation YAML.  
+Ordre : 2
+
+Nom fonctionnalité : Suppression Association  
+Description : En tant qu'admin, je souhaite pouvoir supprimer une association.  
+Test : Appeler la route API `DELETE /associations/{id}` et vérifier que l'association n'existe plus dans la base de données (ou que l'appel GET renvoie une erreur, par exemple un code 404).  
+Ordre : 3
+
+
+===========================================
+           FONCTIONNALITÉS MÉCÈNE
+===========================================
+
+Nom fonctionnalité : Ajout Mécène  
+Description : En tant qu'admin, je souhaite pouvoir ajouter un mécène afin d’enrichir notre portefeuille de partenaires.  
+Test : Appeler la route API `POST /mecenes` et vérifier que le code de réponse est 201 ainsi que l'insertion correcte dans la base de données.  
+Ordre : 1
+
+Nom fonctionnalité : Consultation Mécène  
+Description : En tant qu'admin, je souhaite pouvoir consulter les informations d’un mécène.  
+Test : Appeler la route API `GET /mecenes/{id}` et vérifier que le code de réponse est 200 et conforme à la documentation YAML.  
+Ordre : 2
+
+Nom fonctionnalité : Modification Mécène  
+Description : En tant qu'admin, je souhaite pouvoir modifier les informations d’un mécène.  
+Test : Appeler la route API `PUT /mecenes/{id}` avec les nouvelles données et vérifier que la modification est effective en base de données et conforme à la documentation YAML.  
+Ordre : 2
+
+Nom fonctionnalité : Suppression Mécène  
+Description : En tant qu'admin, je souhaite pouvoir supprimer un mécène.  
+Test : Appeler la route API `DELETE /mecenes/{id}` et vérifier que le mécène n’est plus présent (ou qu’une tentative de consultation via GET renvoie une erreur, par exemple 404).  
+Ordre : 3
+
+
+===========================================
+           FONCTIONNALITÉS PUBLICITÉ
+===========================================
+
+Nom fonctionnalité : Ajout Publicité  
+Description : En tant qu'admin, je souhaite pouvoir ajouter une publicité pour promouvoir nos campagnes.  
+Test : Appeler la route API `POST /publicites`, vérifier que le code de réponse est 201 et que la publicité est correctement enregistrée dans la base de données, en accord avec la documentation YAML.  
+Ordre : 1
+
+Nom fonctionnalité : Consultation Publicité  
+Description : En tant qu'admin, je souhaite pouvoir consulter les détails d'une publicité.  
+Test : Appeler la route API `GET /publicites/{id}` et vérifier que le code de réponse est 200 et que les informations retournées correspondent aux attentes définies dans la documentation YAML.  
+Ordre : 2
+
+Nom fonctionnalité : Modification Publicité  
+Description : En tant qu'admin, je souhaite pouvoir modifier une publicité.  
+Test : Appeler la route API `PUT /publicites/{id}` avec les nouvelles données, puis vérifier via la base de données que les modifications sont prises en compte et conformes à la documentation YAML.  
+Ordre : 2
+
+Nom fonctionnalité : Suppression Publicité  
+Description : En tant qu'admin, je souhaite pouvoir supprimer une publicité.  
+Test : Appeler la route API `DELETE /publicites/{id}` et vérifier que la publicité n'est plus accessible (par exemple, un appel GET renvoie un code 404) et que la suppression est effective en base de données.  
+Ordre : 3
+
+
+===========================================
+           FONCTIONNALITÉS CAMPAGNE
+===========================================
+
+Nom fonctionnalité : Ajout Campagne  
+Description : En tant qu'admin, je souhaite pouvoir créer une campagne afin d'organiser nos actions marketing.  
+Test : Appeler la route API `POST /campagnes` et vérifier que le code de réponse est 201 ainsi que l'insertion correcte de la campagne dans la base de données conformément au schéma attendu dans la documentation YAML.  
+Ordre : 1
+
+Nom fonctionnalité : Consultation Campagne  
+Description : En tant qu'admin, je souhaite pouvoir consulter les informations d'une campagne.  
+Test : Appeler la route API `GET /campagnes/{id}` et vérifier que le code de réponse est 200 et que les informations retournées sont conformes à la documentation YAML.  
+Ordre : 2
+
+Nom fonctionnalité : Modification Campagne  
+Description : En tant qu'admin, je souhaite pouvoir modifier les informations d'une campagne.  
+Test : Appeler la route API `PUT /campagnes/{id}` avec les données modifiées, vérifier dans la base de données que la modification est effective et comparer la réponse avec la documentation YAML.  
+Ordre : 2
+
+Nom fonctionnalité : Suppression Campagne  
+Description : En tant qu'admin, je souhaite pouvoir supprimer une campagne.  
+Test : Appeler la route API `DELETE /campagnes/{id}` et vérifier que la campagne est bien supprimée (absence en base de données et impossibilité d’accès via un appel GET qui devrait retourner une erreur, par exemple 404), en accord avec la documentation YAML.  
+Ordre : 3

@@ -1,0 +1,363 @@
+openapi: 3.0.3
+info:
+  title: YabonLaPub API
+  description: API pour la gestion des Associations, Mécènes, Publicités et Campagnes. Géré par un administrateur.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080/api
+    description: Serveur local
+
+paths:
+  /admin/associations:
+    get:
+      summary: Récupérer toutes les associations
+      tags: [Associations]
+      responses:
+        '200':
+          description: Liste des associations récupérée avec succès
+        '401':
+          description: Non autorisé
+    post:
+      summary: Créer une nouvelle association
+      tags: [Associations]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Association'
+      responses:
+        '201':
+          description: Association créée avec succès
+        '401':
+          description: Non autorisé
+
+  /admin/associations/{id}:
+    get:
+      summary: Récupérer une association par ID
+      tags: [Associations]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Association récupérée avec succès
+        '404':
+          description: Association non trouvée
+    put:
+      summary: Mettre à jour une association
+      tags: [Associations]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Association'
+      responses:
+        '200':
+          description: Association mise à jour avec succès
+        '404':
+          description: Association non trouvée
+    delete:
+      summary: Supprimer une association
+      tags: [Associations]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Association supprimée avec succès
+        '404':
+          description: Association non trouvée
+
+  /admin/mecenes:
+    get:
+      summary: Récupérer tous les mécènes
+      tags: [Mécènes]
+      responses:
+        '200':
+          description: Liste des mécènes récupérée avec succès
+        '401':
+          description: Non autorisé
+    post:
+      summary: Créer un nouveau mécène
+      tags: [Mécènes]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Mecene'
+      responses:
+        '201':
+          description: Mécène créé avec succès
+        '401':
+          description: Non autorisé
+
+  /admin/mecenes/{id}:
+    get:
+      summary: Récupérer un mécène par ID
+      tags: [Mécènes]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Mécène récupéré avec succès
+        '404':
+          description: Mécène non trouvé
+    put:
+      summary: Mettre à jour un mécène
+      tags: [Mécènes]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Mecene'
+      responses:
+        '200':
+          description: Mécène mis à jour avec succès
+        '404':
+          description: Mécène non trouvé
+    delete:
+      summary: Supprimer un mécène
+      tags: [Mécènes]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Mécène supprimé avec succès
+        '404':
+          description: Mécène non trouvé
+
+  /admin/publicites:
+    get:
+      summary: Récupérer toutes les publicités
+      tags: [Publicités]
+      responses:
+        '200':
+          description: Liste des publicités récupérée avec succès
+        '401':
+          description: Non autorisé
+    post:
+      summary: Créer une nouvelle publicité
+      tags: [Publicités]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Publicite'
+      responses:
+        '201':
+          description: Publicité créée avec succès
+        '401':
+          description: Non autorisé
+
+  /admin/publicites/{id}:
+    get:
+      summary: Récupérer une publicité par ID
+      tags: [Publicités]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Publicité récupérée avec succès
+        '404':
+          description: Publicité non trouvée
+    put:
+      summary: Mettre à jour une publicité
+      tags: [Publicités]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Publicite'
+      responses:
+        '200':
+          description: Publicité mise à jour avec succès
+        '404':
+          description: Publicité non trouvée
+    delete:
+      summary: Supprimer une publicité
+      tags: [Publicités]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Publicité supprimée avec succès
+        '404':
+          description: Publicité non trouvée
+
+  /admin/campagnes:
+    get:
+      summary: Récupérer toutes les campagnes
+      tags: [Campagnes]
+      responses:
+        '200':
+          description: Liste des campagnes récupérée avec succès
+        '401':
+          description: Non autorisé
+    post:
+      summary: Créer une nouvelle campagne
+      tags: [Campagnes]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Campagne'
+      responses:
+        '201':
+          description: Campagne créée avec succès
+        '401':
+          description: Non autorisé
+
+  /admin/campagnes/{id}:
+    get:
+      summary: Récupérer une campagne par ID
+      tags: [Campagnes]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Campagne récupérée avec succès
+        '404':
+          description: Campagne non trouvée
+    put:
+      summary: Mettre à jour une campagne
+      tags: [Campagnes]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Campagne'
+      responses:
+        '200':
+          description: Campagne mise à jour avec succès
+        '404':
+          description: Campagne non trouvée
+    delete:
+      summary: Supprimer une campagne
+      tags: [Campagnes]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Campagne supprimée avec succès
+        '404':
+          description: Campagne non trouvée
+
+components:
+  schemas:
+    Association:
+      type: object
+      properties:
+        id:
+          type: integer
+        nom:
+          type: string
+        email_contact:
+          type: string
+        description:
+          type: string
+        logo:
+          type: string
+        site_web:
+          type: string
+    Mecene:
+      type: object
+      properties:
+        id:
+          type: integer
+        nom:
+          type: string
+        email_contact:
+          type: string
+        numero_telephone:
+          type: string
+        logo:
+          type: string
+    Publicite:
+      type: object
+      properties:
+        id:
+          type: integer
+        nom_pub:
+          type: string
+        campagne_id:
+          type: integer
+        description:
+          type: string
+    Campagne:
+      type: object
+      properties:
+        id:
+          type: integer
+        nom_campagne:
+          type: string
+        date_debut_campagne:
+          type: string
+          format: date
+        date_fin_campagne:
+          type: string
+          format: date
+        description:
+          type: string

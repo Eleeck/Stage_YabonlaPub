@@ -1,0 +1,53 @@
+openapi: 3.0.3
+info:
+  title: API de gestion des utilisateurs
+  description: Une API simple pour gérer des utilisateurs
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000
+    description: Serveur local de développement
+
+paths:
+  /users:
+    get:
+      summary: Récupérer la liste des utilisateurs
+      description: Retourne une liste d'utilisateurs avec leurs informations.
+      responses:
+        '200':
+          description: Liste des utilisateurs retournée avec succès
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+    post:
+      summary: Créer un nouvel utilisateur
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: Utilisateur créé avec succès
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "Jean Dupont"
+        email:
+          type: string
+          format: email
+          example: "jean.dupont@example.com"
+
