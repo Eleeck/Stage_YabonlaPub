@@ -1,7 +1,14 @@
 const db = require('../config/dbconfig');
+const campagneSchema = require('../Schema/campagneSchema'); // Importation du schéma
 
 // Ajouter une campagne
 exports.addCampagne = (req, res) => {
+
+    const { error, value } = campagneSchema.validate(req.body);
+
+    if (error) {
+        return res.status(400).send(`Erreur de validation: ${error.details[0].message}`);
+    }
     const { nom, description, date_debut, date_fin} = req.body;
     const sql = 'INSERT INTO campagnes (nom, description, date_debut, date_fin) VALUES (?,?,?,?)';
     db.query(sql, [nom, description, date_debut, date_fin], (err, result) => {
@@ -11,6 +18,20 @@ exports.addCampagne = (req, res) => {
             return;
         }
         res.status(201).send('Campagne ajoutée avec succès');
+    });
+};
+
+
+// Récupérer toutes les campagnes actives avec le statut "active"
+exports.getOnlyActiveCampagnes = (req, res) => {
+    const sql = 'SELECT * FROM campagnes WHERE status = 1 ';
+
+    db.query(sql, (err, result) => {
+        if (err) {
+            console.error("Erreur lors de la récupération des campagnes actives:", err);
+            return res.status(500).json({ error: "Erreur serveur" });
+        }
+        res.json(result);
     });
 };
 
@@ -31,6 +52,18 @@ exports.getCampagne = (req, res) => {
     });
 };
 
+// Récupérer toutes les campagnes
+exports.getAllCampagnes = (req, res) => {
+    const sql = 'SELECT * FROM campagnes';
+    
+    db.query(sql, (err, result) => {
+        if (err) {
+            console.error("Erreur lors de la récupération des campagnes :", err);
+            return res.status(500).json({ error: "Erreur serveur" });
+        }
+        res.json(result);
+    });
+};
 
 // Modifier une campagne
 exports.updateCampagne = (req, res) => {
@@ -60,14 +93,15 @@ exports.updateCampagne = (req, res) => {
             titre: updates.nom || currentData.nom,
             description: updates.description || currentData.description,
             date_debut: updates.date_debut || currentData.date_debut,
-            date_fin: updates.date_fin || currentData.date_fin
+            date_fin: updates.date_fin || currentData.date_fin,
+            status: updates.status || currentData.status
         };
 
         // Construire la requête SQL dynamiquement
-        const sql = 'UPDATE campagnes SET nom = ?, description = ?, date_debut = ?, date_fin = ? WHERE id_campagne = ?';
-        db.query(sql, [newData.titre, newData.description, newData.date_debut, newData.date_fin, id_campagne], (err, result) => {
+        const sql = 'UPDATE campagnes SET nom = ?, description = ?, date_debut = ?, date_fin = ?, status = ? WHERE id_campagne = ?';
+        db.query(sql, [newData.titre, newData.description, newData.date_debut, newData.date_fin, newData.status, id_campagne], (err, result) => {
             if (err) {
-                console.error('Erreur lors de la modification de la campagne:', err);
+                // console.error('Erreur lors de la modification de la campagne:', err); 
                 return res.status(500).send('Erreur serveur');
             }
 
@@ -82,7 +116,7 @@ exports.deleteCampagne = (req, res) => {
     const sql = 'DELETE FROM campagnes WHERE id_campagne = ?';
     db.query(sql, [id_campagne], (err, result) => {
         if (err) {
-            console.error('Erreur lors de la suppression de la campagne:', err);
+            // console.error('Erreur lors de la suppression de la campagne:', err);
             res.status(500).send('Erreur serveur');
             return;
         }

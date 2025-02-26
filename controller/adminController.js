@@ -1,6 +1,7 @@
 const db = require('../config/dbconfig'); // Connexion à MySQL
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const loginSchema = require('../Schema/adminSchema');
 
 /**
  * @route   POST /admin/login
@@ -10,6 +11,12 @@ const jwt = require('jsonwebtoken');
 exports.loginAdmin = (req, res) => {
     const { email, password } = req.body;
     console.log(req.body)
+
+    // Validation avec schéma
+    const { error } = loginSchema.validate({ email, password });
+    if (error) {
+        return res.status(400).json({ message: error.details[0].message });
+    }
 
     const sql = 'SELECT * FROM admins WHERE email = ?';
     db.query(sql, [email], async (err, results) => {
@@ -51,28 +58,28 @@ exports.loginAdmin = (req, res) => {
  * @desc    Seul un admin peut créer un autre admin
  * @access  Privé (Admin uniquement)
  */
-exports.addAdmin = (req, res) => {
-    const {nom, prenom, email, password } = req.body;
-    console.log("Corps de la requête:", req.body)
+// exports.addAdmin = (req, res) => {
+//     const {nom, prenom, email, password } = req.body;
+//     console.log("Corps de la requête:", req.body)
 
-    // Hashage du mot de passe
-    bcrypt.hash(password, 10, (err, hashedPassword) => {
-        if (err) {
-            console.error('Erreur de hashage du mot de passe:', err);
-            return res.status(500).json({ message: 'Erreur serveur' });
-        }
+//     // Hashage du mot de passe
+//     bcrypt.hash(password, 10, (err, hashedPassword) => {
+//         if (err) {
+//             console.error('Erreur de hashage du mot de passe:', err);
+//             return res.status(500).json({ message: 'Erreur serveur' });
+//         }
 
-        const sql = 'INSERT INTO admins (nom, prenom, email, password) VALUES (?, ?, ?, ?)';
-        db.query(sql, [nom, prenom, email, hashedPassword], (err, result) => {
-            if (err) {
-                console.error('Erreur lors de la création de l\'admin:', err);
-                return res.status(500).json({ message: 'Erreur serveur' });
-            }
+//         const sql = 'INSERT INTO admins (nom, prenom, email, password) VALUES (?, ?, ?, ?)';
+//         db.query(sql, [nom, prenom, email, hashedPassword], (err, result) => {
+//             if (err) {
+//                 console.error('Erreur lors de la création de l\'admin:', err);
+//                 return res.status(500).json({ message: 'Erreur serveur' });
+//             }
 
-            res.status(201).json({ message: 'Administrateur créé avec succès' });
-        });
-    });
-};
+//             res.status(201).json({ message: 'Administrateur créé avec succès' });
+//         });
+//     });
+// };
 
 /**
  * @route   GET /admin/account/:id_admin

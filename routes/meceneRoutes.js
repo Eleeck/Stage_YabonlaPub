@@ -4,17 +4,18 @@ const express = require('express');
 const router = express.Router();
 const meceneController = require('../controller/meceneController');
 const authenticateToken = require('../middleware/authMiddleware');
+const validEmailFormat = require('../middleware/validationMiddleware');
 
 // Ajouter un mécène
-router.post('/ajout_mecene', authenticateToken,meceneController.addMecene);
+router.post('/add', authenticateToken, validEmailFormat, meceneController.addMecene);
 
 // Consulter un mécène
-router.get('/select/:id_mecene', authenticateToken,meceneController.getMecene);
+router.get('/get/:id_mecene', authenticateToken, meceneController.getMecene);
 
 // Modifier un mécène
-router.put('/change/:id_mecene', authenticateToken,meceneController.updateMecene);
+router.put('/update/:id_mecene', authenticateToken, meceneController.updateMecene);
 
 // Supprimer un mécène
-router.delete('/supprimer/:id_mecene', authenticateToken,meceneController.deleteMecene);
+router.delete('/delete/:id_mecene', authenticateToken,meceneController.deleteMecene);
 
 module.exports = router;

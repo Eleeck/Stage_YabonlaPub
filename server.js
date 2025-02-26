@@ -18,7 +18,7 @@ if (fs.existsSync(envFile)) {
 }
 
 // Définir le port du serveur
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.SERVER_PORT || 3000;
 
 console.log(`🌍 Mode actuel : ${NODE_ENV}`);
 console.log(`🚀 Serveur en écoute sur http://localhost:${PORT}`);

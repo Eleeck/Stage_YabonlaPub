@@ -4,15 +4,15 @@ const publiciteController = require('../controller/publiciteController');
 const authenticateToken = require('../middleware/authMiddleware');
 
 // Ajouter une publicité
-router.post('/ajout_pub', authenticateToken,publiciteController.addPublicite);
+router.post('/add', authenticateToken,publiciteController.addPublicite);
 
 // Consulter une publicité par ID
-router.get('/select_pub/:id_pub', authenticateToken,publiciteController.getPublicite);
+router.get('/get/:id_pub', authenticateToken,publiciteController.getPublicite);
 
 // Modifier une publicité
-router.put('/change_pub/:id_pub',authenticateToken, publiciteController.updatePublicite);
+router.put('/update/:id_pub',authenticateToken, publiciteController.updatePublicite);
 
 // Supprimer une publicité
-router.delete('/supprimer_pub/:id_pub', authenticateToken, publiciteController.deletePublicite);
+router.delete('/delete/:id_pub', authenticateToken, publiciteController.deletePublicite);
 
 module.exports = router;

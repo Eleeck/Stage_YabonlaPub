@@ -4,7 +4,7 @@ const associationRoutes = require('./associationRoutes');
 const meceneRoutes = require('./meceneRoutes');
 const publiciteRoutes = require('./publiciteRoutes');
 const campagneRoutes = require('./campagneRoutes');
-const campagneActiveRoutes = require('./campagneActiveRoutes');
+
 
 module.exports = {
     adminRoutes,
@@ -12,5 +12,5 @@ module.exports = {
     meceneRoutes,
     publiciteRoutes,
     campagneRoutes,
-    campagneActiveRoutes
+   
 };
