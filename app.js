@@ -1,31 +1,29 @@
-// app.js 
 const express = require('express');
-require('dotenv').config(); // Charger les variables d'environnement
-const cors = require('cors'); // Permet les requêtes externes
+require('dotenv').config();
+const cors = require('cors');
 const db = require('./config/dbconfig');
-const bodyParser = require('body-parser');
 
 const routes = require('./routes'); // Import centralisé des routes
 
 const app = express();
 
-// Middleware pour parser les requêtes en JSON
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true}));
+// ✅ Middleware natif pour parser les requêtes en JSON
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Activer CORS pour permettre les requêtes depuis d'autres origines 
+// Activer CORS pour permettre les requêtes externes
 app.use(cors());
 
 // Logger pour voir le mode en cours
 console.log(`🌍 Mode actuel : ${process.env.NODE_ENV || 'development'}`);
 
 // Utilisation des routes
-app.use('/admins', routes.adminRoutes);
-app.use('/admins/associations', routes.associationRoutes);
-app.use('/admins/mecenes', routes.meceneRoutes);
-app.use('/admins/publicites', routes.publiciteRoutes);
-app.use('/admins/campagnes', routes.campagneRoutes);
-app.use('/admins/campagnes/actives', routes.campagneActiveRoutes);
+app.use('/admin', routes.adminRoutes);
+app.use('/admin/association', routes.associationRoutes);
+app.use('/admin/mecene', routes.meceneRoutes);
+app.use('/admin/ad', routes.publiciteRoutes);
+app.use('/admin/campaign', routes.campagneRoutes);
+// app.use('/admin/campaign_ads', routes.PubCampagneRoutes);
 
 // Middleware pour gérer les routes inexistantes
 app.use((req, res, next) => {
@@ -35,7 +33,7 @@ app.use((req, res, next) => {
 // Middleware de gestion des erreurs
 app.use((err, req, res, next) => {
     console.error('❌ Erreur serveur:', err.stack);
-    res.status(500).json({ message: 'Erreur serveur, veuillez réessayer plus tard.' });
+    res.status(500).json({ message: "Erreur serveur" });
 });
 
 module.exports = app;

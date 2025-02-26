@@ -3,20 +3,15 @@ const express = require('express');
 const router = express.Router();
 const adminController = require('../controller/adminController');
 const authenticateToken = require('../middleware/authMiddleware');
+const validEmailFormat = require('../middleware/validationMiddleware');
 
-/**
- * @route   POST /admin/create_account
- * @desc    Seul un admin connecté peut créer un autre administrateur
- * @access  Privé (Admin uniquement)
- */
-router.post('/create_account', authenticateToken, adminController.addAdmin);
 
 /**
  * @route   POST /admin/login
  * @desc    Connexion admin et génération d'un token JWT
  * @access  Public
  */
-router.post('/login', adminController.loginAdmin);
+router.post('/login', validEmailFormat, adminController.loginAdmin);
 
 /**
  * @route   GET /admin/account/:id_admin

@@ -1,9 +1,15 @@
 // controllers/associationController.js
 const db = require('../config/dbconfig');
+const associationValidation = require('../Schema/associationSchema');
 
 // Ajouter une association
 const addAssociation = (req, res) => {
     const { nom, description, adresse, site_web } = req.body;
+    // Validation des données
+    const { error } = associationValidation.validate({ nom, description, adresse, site_web }, { presence: 'required' });
+    if (error) {
+        return res.status(400).send(error.details[0].message);
+    }
     const sql = 'INSERT INTO associations (nom, description, adresse, site_web) VALUES (?, ?, ?, ?)';
     db.query(sql, [nom, description, adresse, site_web], (err, result) => {
         if (err) {
@@ -35,9 +41,14 @@ const updateAssociation = (req, res) => {
     const { id } = req.params;
     const { nom, description, adresse, site_web } = req.body;
 
-    // Validation des données (par exemple, vérifier que tous les champs nécessaires sont présents)
+    // Validation des données
     if (!nom && !description && !adresse && !site_web) {
         return res.status(400).send('Aucune donnée fournie pour la mise à jour');
+    }
+
+    const { error } = associationValidation.validate({ nom, description, adresse, site_web });
+    if (error) {
+        return res.status(400).send(error.details[0].message);
     }
 
     // Requête SQL pour obtenir les données actuelles de l'association

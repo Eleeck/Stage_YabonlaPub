@@ -2,7 +2,7 @@ const db = require('../config/dbconfig');
 
 // Ajouter une publicité
 exports.addPublicite = (req, res) => {
-    const { titre, descriptif } = req.body; // Harmonisation avec la base de données
+    const { titre, descriptif } = req.body; 
 
     if (!titre || !descriptif) {
         return res.status(400).json({ error: "Le titre et la description sont obligatoires." });
@@ -38,7 +38,7 @@ exports.getPublicite = (req, res) => {
 // Modifier une publicité
 exports.updatePublicite = (req, res) => {
     const { id_pub } = req.params;
-    const { titre, descriptif } = req.body; // Harmonisation des noms
+    const { titre, descriptif } = req.body; 
 
     if (!titre && !descriptif) {
         return res.status(400).json({ error: "Au moins un champ (titre ou description) doit être fourni." });
@@ -57,7 +57,7 @@ exports.updatePublicite = (req, res) => {
         values.push(descriptif);
     }
 
-    sql = sql.slice(0, -2) + ' WHERE id_pub = ?'; // Supprime la dernière virgule et ajoute la condition WHERE
+    sql = sql.slice(0, -2) + ' WHERE id_pub = ?';
     values.push(id_pub);
 
     db.query(sql, values, (err, result) => {
@@ -74,10 +74,10 @@ exports.updatePublicite = (req, res) => {
 
 // Supprimer une publicité
 exports.deletePublicite = (req, res) => {
-    const { id_pub } = req.params;
-    const sql = 'DELETE FROM publicites WHERE id_pub = ?';
+    const { id_pub, id_campagne } = req.params;
+    const sql = 'DELETE FROM publicites WHERE id_pub = ? and id_campagne = ?';
 
-    db.query(sql, [id_pub], (err, result) => {
+    db.query(sql, [id_pub, id_campagne], (err, result) => {
         if (err) {
             console.error('Erreur lors de la suppression de la publicité:', err);
             return res.status(500).json({ error: 'Erreur serveur' });

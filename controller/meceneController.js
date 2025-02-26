@@ -2,10 +2,10 @@
 const db = require('../config/dbconfig');
 
 exports.addMecene = (req, res) => {
-    const { nom, email, tel, adress } = req.body;
+    const { nom, email, telephone, adresse } = req.body;
 
     // Log des informations reçues
-    // console.log('Données reçues :', { nom, email, tel, adress });
+    console.log('Données reçues :', { nom, email, telephone, adresse });
 
     // Validation des champs
     if (!nom || !email) {
@@ -13,7 +13,7 @@ exports.addMecene = (req, res) => {
     }
 
     const sql = 'INSERT INTO mecenes (nom_mecene, email, telephone, adresse) VALUES (?, ?, ?, ?)';
-    db.query(sql, [nom, email, tel || null, adress || null], (err, result) => {
+    db.query(sql, [nom, email, telephone || null, adresse || null], (err, result) => {
         if (err) {
             console.error('Erreur lors de l\'ajout du mécène:', err);
             res.status(500).send('Erreur serveur');
@@ -54,6 +54,12 @@ exports.updateMecene = (req, res) => {
     // Vérifier si des données ont été envoyées
     if (Object.keys(updates).length === 0) {
         return res.status(400).send('Aucune information à mettre à jour');
+    }
+
+    // Vérifier le format de l'adresse email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (updates.email && !emailRegex.test(updates.email)) {
+        return res.status(400).send('Adresse email invalide');
     }
 
     // Récupérer les valeurs actuelles du mécène
